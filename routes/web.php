@@ -14,5 +14,26 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return response()->json([
+        'name' => config('app.name'),
+        'status' => 'running',
+    ]);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Gateway Routes (Protected by API Key)
+|--------------------------------------------------------------------------
+|
+| These routes proxy requests to the BKN SIASN API.
+| All requests include both APIM and SSO token authentication.
+|
+| - /api/siasn/{path} → APIM + SSO auth
+|
+*/
+
+$router->group(['middleware' => 'api_key', 'prefix' => 'api'], function () use ($router) {
+
+    // Proxy route
+    $router->addRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 'siasn[/{path:.*}]', 'ProxyController@proxy');
 });

@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 // $app->withEloquent();
 
@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('gateway');
 
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +77,9 @@ $app->configure('app');
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'api_key' => App\Http\Middleware\ApiKeyMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
