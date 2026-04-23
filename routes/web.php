@@ -25,15 +25,17 @@ $router->get('/', function () use ($router) {
 | Gateway Routes (Protected by API Key)
 |--------------------------------------------------------------------------
 |
-| These routes proxy requests to the BKN SIASN API.
-| All requests include both APIM and SSO token authentication.
+| These routes proxy requests to the BKN Web Service API.
+| The full path after /api/ is forwarded as-is to the configured base URL.
 |
-| - /api/siasn/{path} → APIM + SSO auth
+| Examples:
+| - /api/apisiasn/1.0/pns/data-utama/{nip}
+| - /api/referensi_siasn/1/agama
 |
 */
 
 $router->group(['middleware' => 'api_key', 'prefix' => 'api'], function () use ($router) {
 
-    // Proxy route
-    $router->addRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 'siasn[/{path:.*}]', 'ProxyController@proxy');
+    // Catch-all proxy route — forwards full path to SIASN API
+    $router->addRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], '{path:.*}', 'ProxyController@proxy');
 });

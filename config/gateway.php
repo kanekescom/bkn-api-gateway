@@ -19,7 +19,7 @@ return [
     | SIASN Base Configuration
     |--------------------------------------------------------------------------
     */
-    'siasn_url' => env('SIASN_URL', 'https://apimws.bkn.go.id:8243/apisiasn/1.0'),
+    'siasn_url' => env('SIASN_WS_URL', 'https://apimws.bkn.go.id:8243'),
     'timeout' => env('SIASN_TIMEOUT', 60),
     'verify_ssl' => env('SIASN_VERIFY_SSL', true),
 

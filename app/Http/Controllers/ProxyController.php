@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 class ProxyController extends Controller
 {
     /**
-     * Proxy request to SIASN API.
+     * Proxy request to BKN Web Service.
      *
      * @param  Request  $request
      * @param  string|null  $path
@@ -20,22 +20,22 @@ class ProxyController extends Controller
         try {
             $method = strtolower($request->method());
             $targetPath = '/' . ltrim($path, '/');
-            // Base URL SIASN Production
+
+            // Build target URL from BKN Web Service base URL
             $baseUrl = config('gateway.siasn_url');
-                
             $url = rtrim($baseUrl, '/') . $targetPath;
 
-            // Ambil semua header dari client, KECUALI header internal/spesifik
+            // Collect all client headers, EXCEPT internal/specific ones
             $excludeHeaders = [
-                'host', 
-                'x-api-key', 
-                'content-length', 
-                'connection', 
+                'host',
+                'x-api-key',
+                'content-length',
+                'connection',
                 'accept-encoding',
                 'postman-token',
                 'user-agent'
             ];
-            
+
             $headers = [];
             foreach ($request->headers->all() as $key => $values) {
                 if (!in_array(strtolower($key), $excludeHeaders)) {
@@ -43,14 +43,14 @@ class ProxyController extends Controller
                 }
             }
 
-            // Inisiasi HTTP Client
+            // Initialize HTTP client
             $client = Http::withHeaders($headers)
                 ->timeout(config('gateway.timeout', 60))
                 ->withOptions([
                     'verify' => config('gateway.verify_ssl', true)
                 ]);
 
-            // Eksekusi request berdasarkan method
+            // Execute request based on HTTP method
             switch ($method) {
                 case 'get':
                     $response = $client->get($url, $request->query());
@@ -82,13 +82,12 @@ class ProxyController extends Controller
                     ], 405);
             }
 
-            // Filter response headers yang akan dikembalikan
+            // Filter response headers before returning to client
             $respHeaders = $this->filterResponseHeaders($response->headers());
 
-            // Return response dari BKN
+            // Return the SIASN API response
             return response($response->body(), $response->status())
                 ->withHeaders($respHeaders);
-
         } catch (Exception $e) {
             return response()->json([
                 'error' => 'Gateway Error',
