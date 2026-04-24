@@ -33,7 +33,13 @@ class ProxyController extends Controller
                 'connection',
                 'accept-encoding',
                 'postman-token',
-                'user-agent'
+                'user-agent',
+                'x-forwarded-for',
+                'x-real-ip',
+                'x-forwarded-host',
+                'x-forwarded-port',
+                'x-forwarded-proto',
+                'forwarded',
             ];
 
             $headers = [];
