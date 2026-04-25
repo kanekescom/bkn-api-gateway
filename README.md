@@ -1,5 +1,12 @@
 # BKN Web Service API Gateway
 
+<p align="center">
+<a href="https://github.com/kanekescom/bkn-api-gateway/actions"><img src="https://github.com/kanekescom/bkn-api-gateway/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/kanekescom/bkn-api-gateway"><img src="https://img.shields.io/packagist/dt/kanekescom/bkn-api-gateway" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/kanekescom/bkn-api-gateway"><img src="https://img.shields.io/packagist/v/kanekescom/bkn-api-gateway" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/kanekescom/bkn-api-gateway"><img src="https://img.shields.io/github/license/kanekescom/bkn-api-gateway" alt="License"></a>
+</p>
+
 Server-side proxy untuk mengakses BKN Web Service API (`apimws.bkn.go.id`). Gateway ini di-deploy di server yang IP-nya sudah di-whitelist oleh BKN, sehingga aplikasi lokal bisa mengkonsumsi API BKN melalui proxy ini.
 
 ## Arsitektur
