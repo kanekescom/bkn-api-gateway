@@ -35,6 +35,24 @@
         "sort-packages": true,
         "optimize-autoloader": true
     },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/achmadhadikurnia"
+        },
+        {
+            "type": "buymeacoffee",
+            "url": "https://s.id/hadibmac"
+        },
+        {
+            "type": "patreon",
+            "url": "https://s.id/hadipatreon"
+        },
+        {
+            "type": "saweria",
+            "url": "https://s.id/hadisaweria"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
