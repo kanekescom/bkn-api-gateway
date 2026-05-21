@@ -10,8 +10,7 @@ class ApiKeyMiddleware
     /**
      * Handle an incoming request.
      *
-     * Validates the API key from either the X-Api-Key header
-     * or the api_key query parameter.
+     * Validates the API key from the X-Api-Key header.
      *
      * @param  Request  $request
      * @param  Closure  $next
@@ -26,14 +25,13 @@ class ApiKeyMiddleware
             return $next($request);
         }
 
-        // Check header first, then query parameter
-        $providedKey = $request->header('X-Api-Key')
-            ?? $request->query('api_key');
+        // Check header only
+        $providedKey = $request->header('X-Api-Key');
 
         if (empty($providedKey) || $providedKey !== $configuredKey) {
             return response()->json([
                 'error' => 'Unauthorized',
-                'message' => 'Invalid or missing API key. Provide via X-Api-Key header or api_key query parameter.',
+                'message' => 'Invalid or missing API key. Provide via X-Api-Key header.',
             ], 401);
         }
 
